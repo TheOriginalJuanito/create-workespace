@@ -1,33 +1,70 @@
 {
-  "name": "create-workespace",
-  "displayName": "Create-Workespace",
-  "description": "",
+  "name": "create-workspace",
+  "displayName": "Create Workspace",
+  "description": "Create file/folder presets like webdev base or react-mdx",
   "version": "0.0.1",
   "engines": {
-    "vscode": "^1.102.0"
+    "vscode": "^1.90.0"
   },
-  "categories": [
-    "Other"
+  "activationEvents": [
+    "onCommand:create-workspace.createWebdevBase",
+    "onCommand:create-workspace.HTML"
   ],
-  "activationEvents": [],
   "main": "./extension.js",
   "contributes": {
-    "commands": [{
-      "command": "create-workespace.helloWorld",
-      "title": "Hello World"
-    }]
+    "commands": [
+      {
+        "command": "create-workspace.createWebdevBase",
+        "title": "Webdev Base"
+      },
+      {
+        "command": "create-workspace.HTML",
+        "title": "HTML"
+      }
+    ],
+    "submenus": [
+      {
+        "id": "createWorkspace.workspacePresets",
+        "label": "Workspace Presets",
+        "icon": "$(briefcase)"
+      },
+      {
+        "id": "createWorkspace.filePresets",
+        "label": "File Presets",
+        "icon": "$(file-code)"
+      }
+    ],
+    "menus": {
+  "createWorkspace.workspacePresets": [
+    {
+      "command": "create-workspace.createWebdevBase",
+      "when": "explorerResourceIsFolder",
+      "group": "navigation@1"
+    }
+  ],
+  "createWorkspace.filePresets": [
+    {
+      "command": "create-workspace.HTML",
+      "when": "explorerResourceIsFolder",
+      "group": "navigation@1"
+    }
+  ],
+  "explorer/context": [
+    {
+      "submenu": "createWorkspace.workspacePresets",
+      "when": "explorerResourceIsFolder",
+      "group": "navigation@1"
+    },
+    {
+      "submenu": "createWorkspace.filePresets",
+      "when": "explorerResourceIsFolder",
+      "group": "navigation@1"
+    }
+  ]
+}
+
   },
   "scripts": {
-    "lint": "eslint .",
-    "pretest": "npm run lint",
-    "test": "vscode-test"
-  },
-  "devDependencies": {
-    "@types/vscode": "^1.102.0",
-    "@types/mocha": "^10.0.10",
-    "@types/node": "20.x",
-    "eslint": "^9.25.1",
-    "@vscode/test-cli": "^0.0.11",
-    "@vscode/test-electron": "^2.5.2"
+    "compile": "echo skipped"
   }
 }
